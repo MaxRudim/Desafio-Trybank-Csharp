@@ -23,6 +23,7 @@ public class Trybank
     public void RegisterAccount(int number, int agency, int pass)
     {
         throw new NotImplementedException();
+        
     }
 
     public void Login(int number, int agency, int pass)
