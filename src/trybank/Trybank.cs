@@ -22,6 +22,7 @@ public class Trybank
 
     public void RegisterAccount(int number, int agency, int pass)
     {
+        // Linha das contas;
         for (int i = 0; i < registeredAccounts; i++)
         {
           if (Bank[i, 0] == number && Bank[i, 1] == agency)
@@ -29,6 +30,8 @@ public class Trybank
             throw new ArgumentException("A conta já está sendo usada!");
           }
         }
+
+        // Coluna das contas;
         Bank[registeredAccounts, 0] = number;
         Bank[registeredAccounts, 1] = agency;
         Bank[registeredAccounts, 2] = pass;
@@ -74,7 +77,17 @@ public class Trybank
 
     public void Transfer(int destinationNumber, int destinationAgency, int value)
     {
-        throw new NotImplementedException();
+        if (!Logged) throw new AccessViolationException("Usuário não está logado");
+        if ((Bank[loggedUser, 3] - value) < 0) throw new InvalidOperationException("Saldo insuficiente");
+        
+        for (int i = 0; i < registeredAccounts; i++)
+        {
+          if (Bank[i, 0] == destinationNumber && Bank[i, 1] == destinationAgency)
+          {
+            Bank[loggedUser, 3] -= value;
+            Bank[i, 3] += value;
+          }
+        }
     }
 
     public void Deposit(int value)

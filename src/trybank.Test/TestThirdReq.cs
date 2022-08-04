@@ -8,7 +8,7 @@ namespace trybank.Test;
 public class TestThirdReq
 {
     [Theory(DisplayName = "Deve devolver o saldo em uma conta logada")]
-    [InlineData(0)]
+    [InlineData(500)]
     public void TestCheckBalanceSucess(int balance)
     {        
         var instancee = new Trybank();
@@ -16,6 +16,8 @@ public class TestThirdReq
         instancee.RegisterAccount(1, 2, 3);
 
         instancee.Login(1, 2, 3);
+
+        instancee.Deposit(balance);
 
         var result = instancee.CheckBalance();
 
