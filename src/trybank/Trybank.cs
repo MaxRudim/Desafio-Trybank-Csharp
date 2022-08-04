@@ -51,7 +51,7 @@ public class Trybank
               loggedUser = i;
             }
 
-            throw new ArgumentException("Senha incorreta");
+            else throw new ArgumentException("Senha incorreta");
           }
         }
 
