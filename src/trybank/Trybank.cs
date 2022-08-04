@@ -68,7 +68,8 @@ public class Trybank
 
     public int CheckBalance()
     {
-        throw new NotImplementedException();   
+        if (!Logged) throw new AccessViolationException("Usuário não está logado");
+        return Bank[loggedUser, 3]; 
     }
 
     public void Transfer(int destinationNumber, int destinationAgency, int value)
@@ -78,11 +79,15 @@ public class Trybank
 
     public void Deposit(int value)
     {
-        throw new NotImplementedException();
+        if (!Logged) throw new AccessViolationException("Usuário não está logado");
+        Bank[loggedUser, 3] += value;
     }
 
     public void Withdraw(int value)
     {
-        throw new NotImplementedException();
+        if (!Logged) throw new AccessViolationException("Usuário não está logado");
+        
+        if ((Bank[loggedUser, 3] - value) > 0) Bank[loggedUser, 3] -= value;
+        else throw new InvalidOperationException("Saldo insuficiente");
     }
 }
